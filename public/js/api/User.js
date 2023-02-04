@@ -1,3 +1,5 @@
+//const { response } = require("express");
+
 /**
  * Класс User управляет авторизацией, выходом и
  * регистрацией пользователя из приложения
@@ -8,8 +10,9 @@ class User {
    * Устанавливает текущего пользователя в
    * локальном хранилище.
    * */
-  static setCurrent(user) {
-
+  static setCurrent(user) {    
+    const userJSON = JSON.stringify(user);
+    localStorage.setItem('user', userJSON);
   }
 
   /**
@@ -17,7 +20,7 @@ class User {
    * пользователе из локального хранилища.
    * */
   static unsetCurrent() {
-
+    localStorage.removeItem('user');
   }
 
   /**
@@ -25,15 +28,30 @@ class User {
    * из локального хранилища
    * */
   static current() {
-
+    const userJSON = localStorage.getItem('user');
+    let user = undefined;
+    if (userJSON) {
+      user = JSON.parse(userJSON)
+    }
+    return user;
   }
 
   /**
    * Получает информацию о текущем
    * авторизованном пользователе.
    * */
-  static fetch(callback) {
-
+  static fetch(callback) {            
+    const options = {url:'/user/current', 
+      method:'GET',
+      callback: (err, response) => {
+        if (response && response.success && response.user) {
+          User.setCurrent(response.user);
+        } else {
+          User.unsetCurrent();
+        }
+        callback(err, response);
+      }};    
+    const xhr = createRequest(options);    
   }
 
   /**
@@ -42,19 +60,18 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static login(data, callback) {
-    createRequest({
-      url: this.URL + '/login',
+  static login(data, callback) {                
+    const options = {url: '/user/login',
       method: 'POST',
-      responseType: 'json',
-      data,
+      data: data,
       callback: (err, response) => {
-        if (response && response.user) {
-          this.setCurrent(response.user);
+        if (response && response.success &&response.user) {
+          User.setCurrent(response.user);
         }
         callback(err, response);
-      }
-    });
+      }};
+    
+    const xhr = createRequest(options);                
   }
 
   /**
@@ -63,15 +80,35 @@ class User {
    * сохранить пользователя через метод
    * User.setCurrent.
    * */
-  static register(data, callback) {
-
+  static register(data, callback) {    
+    const options = {url: '/user/register',
+      method: 'POST',
+      data: data,
+      callback: (err, response) => {
+        if (response && response.success &&response.user) {
+          User.setCurrent(response.user);
+        }
+        callback(err, response);
+      }};
+    const xhr = createRequest(options);   
   }
 
   /**
    * Производит выход из приложения. После успешного
    * выхода необходимо вызвать метод User.unsetCurrent
    * */
-  static logout(callback) {
-
+  static logout(callback) {    
+    const options = {url: '/user/logout',
+      method: 'POST',
+      callback: (err, response)=> {
+        if (response && response.success) {
+          User.unsetCurrent();          
+        }
+        if (callback)  {
+          callback(err, response);
+        }
+      }};
+    
+    const xhr = createRequest(options);
   }
 }

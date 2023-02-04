@@ -12,7 +12,7 @@ class UserWidget {
    * необходимо выкинуть ошибку.
    * */
   constructor(element){
-
+    this.element = element;
   }
 
   /**
@@ -22,7 +22,9 @@ class UserWidget {
    * в элемент .user-name устанавливает имя
    * авторизованного пользователя
    * */
-  update(){
-
+  update(){    
+    const curUser = User.current();
+    const userName = document.querySelector('.user-name');
+    userName.textContent = curUser.name;
   }
 }

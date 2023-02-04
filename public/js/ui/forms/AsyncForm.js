@@ -13,15 +13,22 @@ class AsyncForm {
    * через registerEvents()
    * */
   constructor(element) {
-
+    if (!element) {
+      throw "Элемент не существует";
+    }
+    this.element = element;
+    this.registerEvents();
   }
 
   /**
    * Необходимо запретить отправку формы и в момент отправки
    * вызывает метод submit()
    * */
-  registerEvents() {
-
+  registerEvents() {    
+    this.element.addEventListener('submit', (e) => {
+      e.preventDefault();
+      this.submit();
+    });
   }
 
   /**
@@ -31,19 +38,20 @@ class AsyncForm {
    *  'название поля формы 2': 'значение поля формы 2'
    * }
    * */
-  getData() {
-
+  getData() {        
+    const data = new FormData(this.element);    
+    return data;
   }
 
   onSubmit(options){
-
+    
   }
 
   /**
    * Вызывает метод onSubmit и передаёт туда
    * данные, полученные из метода getData()
    * */
-  submit() {
-
+  submit() {    
+    this.onSubmit(this.getData());
   }
 }

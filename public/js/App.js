@@ -95,7 +95,7 @@ class App {
    * из него свойство modalName:
    * App.getModal( 'login' ); // извелекает App.modals.login
    * */
-  static getModal(modalName) {
+  static getModal(modalName) {    
     return this.modals[modalName];
   }
 
@@ -150,11 +150,14 @@ class App {
    * вызвать метод clear()
    * */
   static setState(state) {
+    
+    //state = 'init';
+
     if (this.state) {
       this.element.classList.remove(`app_${this.state}`);
     }
     this.element.classList.add(`app_${state}`);
-    this.state = state;
+    this.state = state;        
 
     if (state === "user-logged") {
       this.update();
@@ -200,7 +203,7 @@ class App {
    * */
   static updateWidgets() {
     this.getWidget("accounts").update();
-    this.getWidget("user").update();
+    this.getWidget("user").update();    
   }
 
   static updateForms() {
