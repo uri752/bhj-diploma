@@ -14,40 +14,28 @@ const createRequest = (options = {}) => {
 
     let curUrl = url;
     let err = undefined;
-
-    if (method === 'GET') {
-        let extUrl = '';
-        for (key in data) {
-            extUrl += (extUrl.length === 0 ? '' : '&') + key + '=' + data[key];
-        }        
-        curUrl = curUrl + '?' + extUrl;
-        try {
-            xhr.open(method, curUrl);
-            xhr.send();
-        }
-        catch (err) {
-            callback(err);
-        }
-    } else {                                       
-        try {
-            xhr.open(method, curUrl);
-            xhr.send(data);
-        }
-        catch (err) {
-            callback(err);
-        }
+    // доработка - убрал лишний try
+    try {
+        if (method === 'GET') {
+            let extUrl = '';
+            for (key in data) {
+                extUrl += (extUrl.length === 0 ? '' : '&') + key + '=' + data[key];
+            }        
+            curUrl = curUrl + '?' + extUrl;                   
+        }   
+        xhr.open(method, curUrl);
+        xhr.send(data);
+    } catch (err) {
+        callback(err);
     }
 
-    xhr.addEventListener('readystatechange', () => {
-        if (xhr.readyState != xhr.DONE) {
-            return;
-        }                
-        
+    // доработка - используем событие 'load' вместо  xhr.addEventListener('readystatechange', () => {
+    // событие load выполняется если запрос завершился успешно 
+    xhr.addEventListener('load', () => {                              
         if (callback) {
             callback(err, xhr.response);
-        }
-        
+        }        
     });
     
-    return xhr;    
+    // доработка - возвращать xhr бессмысленно    
 };

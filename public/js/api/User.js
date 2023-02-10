@@ -6,6 +6,7 @@
  * Имеет свойство URL, равное '/user'.
  * */
 class User {
+  static url = '/user';
   /**
    * Устанавливает текущего пользователя в
    * локальном хранилище.
@@ -27,13 +28,8 @@ class User {
    * Возвращает текущего авторизованного пользователя
    * из локального хранилища
    * */
-  static current() {
-    const userJSON = localStorage.getItem('user');
-    let user = undefined;
-    if (userJSON) {
-      user = JSON.parse(userJSON)
-    }
-    return user;
+  static current() {   
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   /**
@@ -51,7 +47,7 @@ class User {
         }
         callback(err, response);
       }};    
-    const xhr = createRequest(options);    
+    createRequest(options);    
   }
 
   /**
@@ -69,9 +65,8 @@ class User {
           User.setCurrent(response.user);
         }
         callback(err, response);
-      }};
-    
-    const xhr = createRequest(options);                
+      }};    
+    createRequest(options);                
   }
 
   /**
@@ -90,7 +85,7 @@ class User {
         }
         callback(err, response);
       }};
-    const xhr = createRequest(options);   
+    createRequest(options);   
   }
 
   /**
@@ -107,8 +102,7 @@ class User {
         if (callback)  {
           callback(err, response);
         }
-      }};
-    
-    const xhr = createRequest(options);
+      }};    
+    createRequest(options);
   }
 }

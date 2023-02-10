@@ -17,28 +17,18 @@ class CreateTransactionForm extends AsyncForm {
    * Обновляет в форме всплывающего окна выпадающий список
    * */
   renderAccountsList() {
-    let data = {};
+    let data = {};    
     Account.list(data, (err, response) => {            
-      if (response && response.success) {                
-        /*this.renderItem(response.data);            
-        this.registerEvents();*/
-        const elSelectIncome = document.getElementById('income-accounts-list');        
-        if (elSelectIncome) {
-          elSelectIncome.length = 0; // очистить список селектов
+      if (response && response.success) {                      
+        // доработка
+        const elSelect = this.element.querySelector('.accounts-select')
+        if (elSelect) {
+          elSelect.length = 0; // очистить список селектов
           for (let item of response.data) {
             let newOption = new Option(item.name, item.id);
-            elSelectIncome.append(newOption);
+            elSelect.append(newOption);
           }
-        }
-
-        const elSelectExpense = document.getElementById('expense-accounts-list');        
-        if (elSelectExpense) {
-          elSelectExpense.length = 0; // очистить список селектов
-          for (let item of response.data) {
-            let newOption = new Option(item.name, item.id);
-            elSelectExpense.append(newOption);
-          }
-        }
+        }        
       }
     });
   }
@@ -55,13 +45,16 @@ class CreateTransactionForm extends AsyncForm {
       if (response && response.success) {                 
         App.update()        
         
-        document.forms['new-income-form'].reset();                
-        const modalNewIncome = App.getModal('newIncome');
-        modalNewIncome.close();        
-
-        document.forms['new-expense-form'].reset();                
-        const modalNewExpense = App.getModal('newExpense');
-        modalNewExpense.close();        
+        // доработка
+        //document.forms['new-income-form'].reset();                               
+        this.element.reset();
+        if (this.element.id === 'new-income-form') {
+          const modalNewIncome = App.getModal('newIncome');
+          modalNewIncome.close();
+        } else {
+          const modalNewExpense = App.getModal('newExpense');
+          modalNewExpense.close();
+        }        
       }
     });    
   }

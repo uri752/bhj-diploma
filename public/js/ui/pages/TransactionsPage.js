@@ -12,7 +12,7 @@ class TransactionsPage {
    * */
   constructor( element ) {
     if (!element) {
-      throw 'Переданный элемент не существует!';
+      throw new Error('Переданный элемент не существует!');
     }
     this.element = element;
     this.registerEvents();
@@ -32,27 +32,24 @@ class TransactionsPage {
    * TransactionsPage.removeAccount соответственно
    * */
   registerEvents() {
-    const arrRemoveTransaction = [...document.getElementsByClassName('transaction__remove')];        
-    if (arrRemoveTransaction) {
-      for (let el of arrRemoveTransaction) {        
-        el.onclick = (event) => {        
-          //const curTransaction = e.currentTarget;
-          const curTransaction = event.target.closest('button');
-          if (curTransaction) {
-            const transactionId = curTransaction.getAttribute('data-id');
-            App.pages.transactions.removeTransaction(transactionId);
-          }          
-        };
-      }
-      
-    }
+   
+    // Доработка - делегировать событие с элементов крестиков на весь родительский блок.
+    // То есть, вам нужно добавить обработчик события на весь element, а внутри обработчика проверять:
+    // кликнули вы на крестик, или на кнопку удаления счёта, или вообще мимо
+    this.element.addEventListener('click', (event) => {      
+      debugger;            
+      const curEl = event.target.closest('button');//event.target;
+            
+      if (curEl.classList.contains('transaction__remove')) {
+        const transactionId = curEl.getAttribute('data-id');
+        App.pages.transactions.removeTransaction(transactionId);        
+      } 
 
-    const elRemoveAccount = document.querySelector('.remove-account');
-    if (elRemoveAccount) {
-      elRemoveAccount.onclick =  () => {        
+      if (curEl.classList.contains('remove-account')) {
         App.pages.transactions.removeAccount();
-      };
-    }
+      }
+    });
+
   }
 
   /**
@@ -74,8 +71,7 @@ class TransactionsPage {
       const account_id = this.lastOptions.account_id;      
       const data = new FormData();
       data.append('id',account_id);      
-
-      Account.url = '/account';
+      
       Account.remove(data, (err, response) => {
         if (response && response.success) {          
           App.pages.transactions.clear();          
@@ -122,8 +118,7 @@ class TransactionsPage {
     
     this.lastOptions = options;
 
-    const account_id = options.account_id;
-    Account.url = '/account';
+    const account_id = options.account_id;    
     Account.get(account_id, (err, response, account_id) => {
       if (response && response.success) {        
         
@@ -133,14 +128,13 @@ class TransactionsPage {
 
       }
     });
-
-    Transaction.url = '/transaction';    
+    
     let data = {'account_id':account_id};
     Transaction.list(data, (err, response) => {
       if (response && response.success) {                        
         App.pages.transactions.clearPage();
         App.pages.transactions.renderTransactions(response.data);
-        App.pages.transactions.registerEvents();
+        //App.pages.transactions.registerEvents();
       }
     });    
     
@@ -244,8 +238,13 @@ class TransactionsPage {
    * */
   renderTransactions(data){
     for (let item of data) {
-      const htmlEl = this.getTransactionHTML(item);
-      this.element.insertAdjacentHTML('beforeEnd',htmlEl);
+      const htmlEl = this.getTransactionHTML(item);      
+      
+      // доработка - добавить транзакции в нужный блок
+      const elContent = this.element.querySelector('.content')
+      if (elContent) {
+        elContent.insertAdjacentHTML('beforeEnd',htmlEl);
+      } 
     }
   }
 }

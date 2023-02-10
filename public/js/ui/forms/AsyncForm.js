@@ -14,7 +14,7 @@ class AsyncForm {
    * */
   constructor(element) {
     if (!element) {
-      throw "Элемент не существует";
+      throw new Error("Элемент не существует");
     }
     this.element = element;
     this.registerEvents();

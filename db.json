@@ -47,6 +47,24 @@
       "email": "demo555@mail.ru",
       "password": "555",
       "id": "1lvc04boldpnmkhy"
+    },
+    {
+      "name": "demo9",
+      "email": "demo9@demo.ru",
+      "password": "9",
+      "id": "cq3o1asldxbse9j"
+    },
+    {
+      "name": "demo1002",
+      "email": "demo1002@demo.ru",
+      "password": "1002",
+      "id": "cq3oge4ldyo4uyw"
+    },
+    {
+      "name": "demo1932",
+      "email": "demo1932@demo.ru",
+      "password": "1932",
+      "id": "cq3oczkldyqyf67"
     }
   ],
   "accounts": [
@@ -66,24 +84,29 @@
       "id": "3"
     },
     {
-      "name": "Новый1",
-      "user_id": "cq3o80wldhrgaw2",
-      "id": "1lvc08z4ldplsv3a"
+      "name": "demo22",
+      "user_id": "cq3odecldj23sz2",
+      "id": "1lvc097kldpncyep"
     },
     {
       "name": "demo",
       "user_id": "cq3o80wldhrgaw2",
-      "id": "1lvc0dcwldpltt73"
+      "id": "cq3oc7cldxbkdtc"
     },
     {
-      "name": "demo2",
+      "name": "demo25",
       "user_id": "cq3o80wldhrgaw2",
-      "id": "1lvc0g78ldpm668r"
+      "id": "cq3oavoldxfolo2"
     },
     {
-      "name": "demo22",
-      "user_id": "cq3odecldj23sz2",
-      "id": "1lvc097kldpncyep"
+      "name": "demo1932",
+      "user_id": "cq3oczkldyqyf67",
+      "id": "cq3oc0gldyqyiqs"
+    },
+    {
+      "name": "demo1933",
+      "user_id": "cq3oczkldyqyf67",
+      "id": "cq3oe2oldyqymf3"
     }
   ],
   "transactions": [
@@ -241,24 +264,6 @@
       "created_at": "2023-02-01T16:46:45.122Z"
     },
     {
-      "id": "1lvc0dtgldpmudb1",
-      "type": "income",
-      "name": "demo",
-      "sum": 1000,
-      "account_id": "1lvc08z4ldplsv3a",
-      "user_id": "cq3o80wldhrgaw2",
-      "created_at": "2023-02-04T07:27:19.260Z"
-    },
-    {
-      "id": "1lvc066wldpn1ipy",
-      "type": "income",
-      "name": "Новый1",
-      "sum": 300,
-      "account_id": "1lvc08z4ldplsv3a",
-      "user_id": "cq3o80wldhrgaw2",
-      "created_at": "2023-02-04T07:32:52.869Z"
-    },
-    {
       "id": "1lvc02qoldpnl1y8",
       "type": "income",
       "name": "demo",
@@ -266,6 +271,87 @@
       "account_id": "1lvc097kldpncyep",
       "user_id": "cq3odecldj23sz2",
       "created_at": "2023-02-04T07:48:04.255Z"
+    },
+    {
+      "id": "cq3oekwldxcbfis",
+      "type": "income",
+      "name": "Доход10",
+      "sum": 1000,
+      "account_id": "cq3oc7cldxbkdtc",
+      "user_id": "cq3o80wldhrgaw2",
+      "created_at": "2023-02-09T16:54:48.915Z"
+    },
+    {
+      "id": "cq3o184ldxcbpao",
+      "type": "income",
+      "name": "demo",
+      "sum": 500,
+      "account_id": "cq3oc7cldxbkdtc",
+      "user_id": "cq3o80wldhrgaw2",
+      "created_at": "2023-02-09T16:55:01.583Z"
+    },
+    {
+      "id": "cq3o4hgldxfp4mp",
+      "type": "income",
+      "name": "demo",
+      "sum": 1000,
+      "account_id": "cq3oavoldxfolo2",
+      "user_id": "cq3o80wldhrgaw2",
+      "created_at": "2023-02-09T18:29:26.832Z"
+    },
+    {
+      "id": "cq3o988ldyqxwkg",
+      "type": "income",
+      "name": "demo",
+      "sum": 1000,
+      "account_id": "cq3oc7cldxbkdtc",
+      "user_id": "cq3o80wldhrgaw2",
+      "created_at": "2023-02-10T16:31:58.239Z"
+    },
+    {
+      "id": "cq3ofikldyqypod",
+      "type": "income",
+      "name": "demo",
+      "sum": 1000,
+      "account_id": "cq3oc0gldyqyiqs",
+      "user_id": "cq3oczkldyqyf67",
+      "created_at": "2023-02-10T16:32:35.964Z"
+    },
+    {
+      "id": "cq3ofn8ldyqyws5",
+      "type": "income",
+      "name": "demo",
+      "sum": 1000,
+      "account_id": "cq3oe2oldyqymf3",
+      "user_id": "cq3oczkldyqyf67",
+      "created_at": "2023-02-10T16:32:45.172Z"
+    },
+    {
+      "id": "cq3o2jsldyqz45k",
+      "type": "expense",
+      "name": "demo",
+      "sum": 500,
+      "account_id": "cq3oc0gldyqyiqs",
+      "user_id": "cq3oczkldyqyf67",
+      "created_at": "2023-02-10T16:32:54.727Z"
+    },
+    {
+      "id": "cq3ofj4ldyqz8q6",
+      "type": "expense",
+      "name": "demo",
+      "sum": 300,
+      "account_id": "cq3oc0gldyqyiqs",
+      "user_id": "cq3oczkldyqyf67",
+      "created_at": "2023-02-10T16:33:00.653Z"
+    },
+    {
+      "id": "cq3o5jkldyqzfzd",
+      "type": "expense",
+      "name": "demo",
+      "sum": 500,
+      "account_id": "cq3oe2oldyqymf3",
+      "user_id": "cq3oczkldyqyf67",
+      "created_at": "2023-02-10T16:33:10.056Z"
     }
   ]
 }

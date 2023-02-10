@@ -39,14 +39,20 @@ class Sidebar {
     const menuItemLogin = document.querySelector('.menu-item_login');
     menuItemLogin.addEventListener('click',() => {      
       const modalLogin = App.getModal('login');      
-      modalLogin.registerEvents();
+      
+      // доработка - Метод registerEvents следует вызывать в конструкторе Modal 
+      //modalLogin.registerEvents();
+
       modalLogin.open();
     });
     
     const menuItemRegister = document.querySelector('.menu-item_register');
     menuItemRegister.addEventListener('click',() => {      
       const modalRegister = App.getModal('register');      
-      modalRegister.registerEvents();
+      
+      // доработка - Метод registerEvents следует вызывать в конструкторе Modal 
+      //modalRegister.registerEvents();
+
       modalRegister.open();
     });
     

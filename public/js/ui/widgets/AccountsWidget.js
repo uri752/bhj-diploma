@@ -15,13 +15,13 @@ class AccountsWidget {
    * Если переданный элемент не существует,
    * необходимо выкинуть ошибку.
    * */
-  constructor( element ) {
-    this.element = element;
+  constructor( element ) {    
     if (!element) {
-      throw 'Переданный элемент не существует!';
+      throw new Error('Переданный элемент не существует!');
     }
+    this.element = element;
     this.registerEvents();
-    //this.update();
+    this.update();
   }
 
   /**
@@ -43,12 +43,21 @@ class AccountsWidget {
     } 
     
     // событие нажатия на существующий счет
-    const currentAccounts = [...document.getElementsByClassName('account')];
+    /*const currentAccounts = [...document.getElementsByClassName('account')];
     for (let curAccount of currentAccounts) {      
       curAccount.addEventListener('click', () => {
         this.onSelectAccount(curAccount);
       });
-    }            
+    }*/            
+
+    // доработки - делегировать событие с элементов на весь родительский блок
+    this.element.addEventListener('click', (event) => {      
+      const curAccount = event.target.closest('.account');//event.target.querySelector('.account');      
+      if (curAccount) {
+        this.onSelectAccount(curAccount);
+      }
+    });
+
   }
 
   /**
@@ -62,13 +71,12 @@ class AccountsWidget {
    * метода renderItem()
    * */
   update() {                
-    let data = {};
-    Account.url = '\account';
+    let data = {};    
     Account.list(data, (err, response) => {
       if (response && response.success) {
         this.clear();
         this.renderItem(response.data);            
-        this.registerEvents();
+        //this.registerEvents();
       }
     });    
   }
